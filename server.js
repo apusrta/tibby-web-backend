@@ -7,13 +7,14 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware CORS
-app.use(cors({
-  origin: 'https://tibby-web-frontend.vercel.app', // Ganti dengan URL frontend kamu
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+const corsOptions = {
+  origin: ['https://tibby-web-frontend.vercel.app'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+  credentials: true
+};
 
-app.use(express.json());
+app.use(cors(corsOptions));
 
 console.log("Mongo URI:", process.env.MONGO_URI);
 console.log("ENV MONGO_URI:", process.env.MONGO_URI);
