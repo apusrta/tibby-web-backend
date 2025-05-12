@@ -15,6 +15,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 console.log("Mongo URI:", process.env.MONGO_URI);
 console.log("ENV MONGO_URI:", process.env.MONGO_URI);
