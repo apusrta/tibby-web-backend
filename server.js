@@ -16,9 +16,21 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
+// Middleware CORS manual (untuk jaga-jaga preflight)
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://tibby-web-frontend.vercel.app");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200); // langsung kasih OK buat preflight
+  }
+  next();
+});
 
 console.log("Mongo URI:", process.env.MONGO_URI);
 console.log("ENV MONGO_URI:", process.env.MONGO_URI);
+
 
 // Koneksi ke MongoDB
 mongoose.connect(process.env.MONGO_URI, {
