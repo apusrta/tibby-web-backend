@@ -6,42 +6,21 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware CORS
-const corsOptions = {
-  origin: ['https://tibby-web-frontend.vercel.app'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-};
-
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
-// Middleware CORS manual (untuk jaga-jaga preflight)
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://tibby-web-frontend.vercel.app");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
-  if (req.method === 'OPTIONS') {
-    return res.sendStatus(200); // langsung kasih OK buat preflight
-  }
-  next();
-});
-
+// Middleware  
+app.use(cors());
+app.use(express.json());
+ 
 console.log("Mongo URI:", process.env.MONGO_URI);
 console.log("ENV MONGO_URI:", process.env.MONGO_URI);
 
-
 // Koneksi ke MongoDB
 mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
+  useNewUrlParser: true, 
   useUnifiedTopology: true,
 })
-.then(() => console.log('✅ Terhubung ke MongoDB Atlas!'))
-.catch((err) => {
-  console.error('❌ Gagal terhubung ke MongoDB:', err.message);
-});
-
+.then(() => console.log('Terhubung ke MongoDB Atlas!'))
+.catch((err) => console.error('Gagal terhubung ke MongoDB:', err));
+ 
 // Import routes
 const siswaRoutes = require('./routes/siswaRoutes'); 
 const kelasRoutes = require('./routes/kelasRoutes');
