@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true, 
   useUnifiedTopology: true,
 })
-.then(() => console.log('Terhubung ke MongoDB Atlas!'))
+.then(() => console.log('Terhubung ke MongoDB!'))
 .catch((err) => console.error('Gagal terhubung ke MongoDB:', err));
  
 // Import routes

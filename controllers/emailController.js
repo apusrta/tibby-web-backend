@@ -24,7 +24,7 @@ exports.kirimEmail = async (req, res) => {
     });
 
     await transporter.sendMail({
-      from: `"${namaFrom}" <apusrta.23@gmail.com>`,
+      from: `"${namaFrom}" <tibby.website.2025@gmail.com>`,
       to: email,
       subject: 'Pesan dari Sekolah',
       text: pesan,
